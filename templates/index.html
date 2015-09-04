@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>PassIon - Heureka password minion</title>
+  <script type="text/javascript" src="public/js/main.js"></script>
 </head>
 <body>
   <h1 id="header"><span class="red">Pass</span>Ion</h1>
@@ -11,33 +12,5 @@
     <button id="btn-send">Submit</button>
     <p id="output"></p>
   </div>
-  <script>
-
-    function submit(ev) {
-      input = document.getElementById('data');
-      data = input.value;
-
-      var http = new XMLHttpRequest();
-      var url = "/set";
-      var params = "pass="+data;
-
-      http.open("POST", url, true);
-
-      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      http.setRequestHeader("Content-length", params.length);
-      http.setRequestHeader("Connection", "close");
-
-      http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState == 4 && http.status == 200) {
-          output = document.getElementById('output');
-          output.innerHTML = 'Heslo dostupné na URL: ' + window.location.host + http.responseText;
-        }
-      }
-      http.send(params);
-    }
-
-    btn = document.getElementById('btn-send');
-    btn.addEventListener("click", submit);
-  </script>
 </body>
 </html>
