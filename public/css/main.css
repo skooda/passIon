@@ -1,0 +1,33 @@
+body {
+  background: #0E2037;
+  font-family: 'Share Tech Mono'; font-size: 3em;
+  text-align: center;
+}
+
+.io-display {
+  width: 90%;
+  margin: 5%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'Share Tech Mono';
+  font-size: 1em;
+  vertical-align: middle;
+  text-align: center;
+  outline: none;
+}
+
+.step { display: none; }
+#step1 { display: block; }
+
+#btn-submit, a {
+  text-decoration: overline;
+  display: inline-block;
+  font-size: 1em;
+  text-transform: capitalize;
+  color: rgba(255,255,255,0.7);
+ }
+
+#btn-submit:hover, a:hover {
+  color: rgba(255,255,255,1);
+}

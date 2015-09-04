@@ -26,7 +26,8 @@ function submit(password, callback) {
 
 function updateOutput(res) {
   output = document.getElementById('output');
-  output.innerHTML = 'Heslo dostupné na URL: ' + window.location.host + res;
+  output.value = 'http://' + window.location.host + res;
+  document.getElementById('step2').style.display = 'block';
 }
 
 function getInput(elId) {
@@ -35,11 +36,20 @@ function getInput(elId) {
 }
 
 function doTranslation() {
-  data = getInput('data');
+  document.getElementById('step1').style.display = 'none';
+  data = getInput('input');
   submit(data, updateOutput);
 }
-
 document.addEventListener("DOMContentLoaded", function() {
-  btn = document.getElementById('btn-send');
+  btn = document.getElementById('btn-submit');
+  btn.style.display = 'none';
   btn.addEventListener("click", doTranslation);
+
+  input = document.getElementById('input');
+  input.addEventListener("keydown", function() {
+    if (input.value.length > 0) btn.style.display = 'inline-block';
+    else btn.style.display = 'none';
+  })
+
+
 });

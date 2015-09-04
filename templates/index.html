@@ -2,15 +2,20 @@
 <html>
 <head>
   <title>PassIon - Heureka password minion</title>
+  <link rel="stylesheet" type="text/css" href="public/css/main.css">
+  <link rel="stylesheet" type="text/css" href="public/css/animate.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="public/js/main.js"></script>
 </head>
 <body>
-  <h1 id="header"><span class="red">Pass</span>Ion</h1>
-  <div id="content">
-    <label for="data">Password / Text for submit</label>
-    <input name="data" id="data" type="text" />
-    <button id="btn-send">Submit</button>
-    <p id="output"></p>
+  <div id="step1" class="step">
+    <textarea name="input" class="io-display" id="input" autofocus placeholder="What do you want to share?"/></textarea>
+    <btn id="btn-submit">SHARE</btn>
+  </div>
+
+  <div id="step2" class="step">
+    <textarea name="output" class="io-display" id="output"></textarea>
+    <a href="/">Repeat</a>
   </div>
 </body>
 </html>
