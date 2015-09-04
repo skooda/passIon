@@ -1,5 +1,9 @@
 {% extends "_layout.html" %}
 
 {% block body %}
-  <textarea name="input" class="io-display" id="input" autofocus/>{{ data }}</textarea>
+  <textarea name="input" class="io-display" id="input" autofocus>{{ data }}</textarea>
+  <script>
+  var input = document.getElementById('input');
+  input.value = decrypt(location.hash.substr(1), null, input.value);
+  </script>
 {% endblock %}
