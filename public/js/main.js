@@ -10,7 +10,7 @@ function postRequest(url, params, callback) {
     if(http.readyState == 4 && http.status == 200) {
       callback(http.responseText);
     }
-  }
+  };
 
   http.send(params);
 }
@@ -20,8 +20,12 @@ function postRequest(url, params, callback) {
  */
 function submit(password, callback) {
   var url = "/set";
-  var params = "pass="+password;
-  postRequest(url, params, callback);
+
+  data = encrypt(password);
+
+  postRequest(url, "pass="+encodeURIComponent(data.encrypted), function(response) {
+    callback(response + "#" + data.privateKey);
+  });
 }
 
 function updateOutput(res) {
@@ -57,3 +61,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 });
+
+function encrypt(text) {
+    enc = new JSEncrypt();
+    enc.getKey();
+
+    return {
+        'privateKey': enc.getPrivateKeyB64(),
+        'publicKey': enc.getPublicKeyB64(),
+        'encrypted': enc.encrypt(text)
+    };
+}
+
+function decrypt(privateKey, publicKey, encrypted) {
+  enc = new JSEncrypt();
+  enc.setPrivateKey(privateKey);
+
+  return enc.decrypt(encrypted);
+}
