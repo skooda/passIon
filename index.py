@@ -1,8 +1,4 @@
-## SOME CONFIG
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
-REDIS_DB = 0
-TTL = 20 # Password time to life (time in seconds, when unpicked password will be deleted)
+import config
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
@@ -14,7 +10,12 @@ import redis
 from uuid import uuid4
 
 app = Flask(__name__,static_folder='public')
-r = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+r = redis.StrictRedis(
+    host=config.REDIS_HOST,
+    port=config.REDIS_PORT,
+    db=config.REDIS_DB,
+    password=config.REDIS_PASSWORD
+)
 
 @app.route('/set', methods=['post'])
 def setPass():
@@ -24,7 +25,7 @@ def setPass():
 
     with r.pipeline() as pipe:
         pipe.set(uuid, password)
-        pipe.expire(uuid, TTL)
+        pipe.expire(uuid, config.TTL)
         pipe.execute()
 
     return '/get/{}'.format(uuid)
