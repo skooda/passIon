@@ -36,7 +36,7 @@ def getPass(uuid):
         password = r.get(uuid)
         r.delete(uuid)
 
-    return password or ""
+    return render_template('get.html', data=password)
 
 @app.route('/', methods=['get'])
 def index():

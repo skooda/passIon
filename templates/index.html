@@ -1,21 +1,13 @@
-<!DOCTYPE>
-<html>
-<head>
-  <title>PassIon - Heureka password minion</title>
-  <link rel="stylesheet" type="text/css" href="public/css/main.css">
-  <link rel="stylesheet" type="text/css" href="public/css/animate.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
-  <script type="text/javascript" src="public/js/main.js"></script>
-</head>
-<body>
+{% extends "_layout.html" %}
+
+{% block body %}
   <div id="step1" class="step">
     <textarea name="input" class="io-display" id="input" autofocus placeholder="What do you want to share?"/></textarea>
-    <btn id="btn-submit">SHARE</btn>
+    <btn id="btn-submit" class="animated fadeIn">SHARE</btn>
   </div>
 
   <div id="step2" class="step">
-    <textarea name="output" class="io-display" id="output"></textarea>
+    <textarea name="output" class="io-display animated fadeInDownBig" id="output"></textarea>
     <a href="/">Repeat</a>
   </div>
-</body>
-</html>
+{% endblock %}

@@ -20,7 +20,7 @@ function postRequest(url, params, callback) {
  */
 function submit(password, callback) {
   var url = "/set";
-  var params = "pass="+data;
+  var params = "pass="+password;
   postRequest(url, params, callback);
 }
 
@@ -46,9 +46,13 @@ document.addEventListener("DOMContentLoaded", function() {
   btn.addEventListener("click", doTranslation);
 
   input = document.getElementById('input');
-  input.addEventListener("keydown", function() {
+  input.addEventListener("keyup", function(ev) {
     if (input.value.length > 0) btn.style.display = 'inline-block';
     else btn.style.display = 'none';
+
+    if ((ev.keyCode == 10 || ev.keyCode == 13) && (!ev.ctrlKey) && (!ev.altKey) && (!ev.shiftKey) && (!ev.cmdKey) && (!ev.metaKey)) { // ENTER/RETURN KEY without modifiers (like ALT/SHIFT/CTRL...)
+      doTranslation();
+    }
   })
 
 
