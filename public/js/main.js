@@ -73,7 +73,7 @@ function encrypt(text) {
     };
 }
 
-function decrypt(privateKey, publicKey, encrypted) {
+function decrypt(privateKey, encrypted) {
   enc = new JSEncrypt();
   enc.setPrivateKey(privateKey);
 
