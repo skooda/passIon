@@ -4,6 +4,6 @@
   <textarea name="input" class="io-display" id="input" autofocus>{{ data }}</textarea>
   <script>
   var input = document.getElementById('input');
-  input.value = decrypt(location.hash.substr(1), null, input.value);
+  input.value = decrypt(location.hash.substr(1), input.value);
   </script>
 {% endblock %}

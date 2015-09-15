@@ -64,14 +64,19 @@ body {
 #step1 { display: block; }
 
 #btn-submit, a {
-  text-decoration: overline;
+  text-decoration: none;
+  border: 1px solid #fff;
   display: inline-block;
-  font-size: 1em;
+  font-size: 0.8em;
   text-transform: capitalize;
-  margin-top: 10px;
-  color: #d8ff00;
+  margin-top: 20px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 5px;
  }
 
 #btn-submit:hover, a:hover {
-  color: rgba(255,255,255,1);
+  border: 1px solid #d8ff00;
+  color: #d8ff00;
 }

@@ -107,7 +107,7 @@ function encrypt(text) {
 /**
  * Decrypt data by assimetric encription
  */
-function decrypt(privateKey, publicKey, encrypted) {
+function decrypt(privateKey, encrypted) {
   enc = new JSEncrypt();
   enc.setPrivateKey(privateKey);
 
