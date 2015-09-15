@@ -2,7 +2,10 @@
 
 {% block body %}
   <div id="step1" class="step">
-    <textarea name="input" class="io-display" id="input" autofocus placeholder="What do you want to share?"/></textarea>
+    <div>
+      <textarea name="input" class="io-display" id="input" autofocus placeholder="What do you want to share?"/></textarea>
+    </div>
+    <p class="tooltip"><span class="key">ENTER</span> will submit, <span class="key">SHIFT</span> + <span class="key">ENTER</span> to create newline</p>
     <btn id="btn-submit" class="animated fadeIn">SHARE</btn>
   </div>
 
@@ -10,4 +13,5 @@
     <textarea name="output" class="io-display animated fadeInDownBig" id="output"></textarea>
     <a href="/">Repeat</a>
   </div>
+
 {% endblock %}

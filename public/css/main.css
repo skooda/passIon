@@ -4,6 +4,18 @@ body {
   text-align: center;
 }
 
+.tooltip {
+    font-size: 0.3em;
+    color: #fff;
+}
+
+.key {
+  border: 1px solid #d8ff00;
+  border-radius: 2px;
+  padding: 4px;
+  color: #d8ff00;
+}
+
 .io-display {
   width: 90%;
   margin: 5%;
@@ -15,6 +27,37 @@ body {
   vertical-align: middle;
   text-align: center;
   outline: none;
+  white-space: pre;
+}
+
+.num-display {
+  font-size: 0.4em;
+  float: left;
+  background: transparent;
+  color: #fff;
+  border: none;
+  border-right: 1px solid #fff;
+  width: 1em;
+}
+
+.io-display.multiline {
+  width: 90%;
+  margin: 5%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'Share Tech Mono';
+  font-size: 0.4em;
+  vertical-align: middle;
+  text-align: left;
+  outline: none;
+}
+
+.io-display#output {
+  font-size: 0.4em;
+  height: 50%;
+  word-break: break-all;
+  text-align: left;
 }
 
 .step { display: none; }
@@ -25,7 +68,8 @@ body {
   display: inline-block;
   font-size: 1em;
   text-transform: capitalize;
-  color: rgba(255,255,255,0.7);
+  margin-top: 10px;
+  color: #d8ff00;
  }
 
 #btn-submit:hover, a:hover {
