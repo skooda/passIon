@@ -3,9 +3,10 @@
 {% block body %}
   <div id="step1" class="step">
     <div>
-      <textarea name="input" class="io-display" id="input" autofocus placeholder="What do you want to share?"/></textarea>
+      <textarea name="input" class="io-display" autocomplete="off" id="input" autofocus placeholder="What do you want to share?"/></textarea>
     </div>
-    <p class="tooltip"><span class="key">ENTER</span> will submit, <span class="key">SHIFT</span> + <span class="key">ENTER</span> to create newline</p>
+    <p id="tooltip-single" class="tooltip"><span class="key">ENTER</span>&nbsp;will&nbsp;submit, <span class="key">SHIFT</span>&nbsp;+&nbsp;<span class="key">ENTER</span>&nbsp;to&nbsp;create&nbsp;newline</p>
+    <p id="tooltip-multi" class="tooltip"><span class="key">CTRL</span>&nbsp;+&nbsp;<span class="key">ENTER</span>&nbsp;will&nbsp;submit, <span class="key">ENTER</span>&nbsp;to&nbsp;create&nbsp;newline</p>
     <btn id="btn-submit" class="animated fadeIn">ENCRYPT AND SHARE</btn>
   </div>
 

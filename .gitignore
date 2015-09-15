@@ -5,6 +5,9 @@ config.py
 __pycache__/
 *.py[cod]
 
+# VirtualENV
+.venv
+
 # C extensions
 *.so
 

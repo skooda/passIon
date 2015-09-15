@@ -4,6 +4,9 @@
 String.prototype.lines = function() { return this.split(/\r*\n/); }
 String.prototype.lineCount = function() { return this.lines().length - (navigator.userAgent.indexOf("MSIE") != -1); }
 
+function $(id) {
+  return document.getElementById(id);
+}
 /**
  * Send post request
  */
@@ -36,16 +39,16 @@ function submit(data, callback) {
  * Update output text
  */
 function updateOutput(res) {
-  output = document.getElementById('output');
+  output = $('output');
   output.value = 'http://' + window.location.host + res;
-  document.getElementById('step2').style.display = 'block';
+  $('step2').style.display = 'block';
 }
 
 /**
  * Get input to encrypt
  */
 function getInput(elId) {
-  input = document.getElementById(elId);
+  var input = $(elId);
   return input.value;
 }
 
@@ -53,41 +56,52 @@ function getInput(elId) {
  * Main translation process
  */
 function doTranslation() {
-  document.getElementById('step1').style.display = 'none';
-  data = getInput('input');
+  $('step1').style.display = 'none';
+  var data = getInput('input');
   submit(data, updateOutput);
 }
 
 var multiline = false;
+
+/**
+ * Activate multiline mode
+ */
+function setMultiline() {
+  multiline = true;
+  $('input').className += ' multiline';
+  $('tooltip-single').style.display = 'none';
+  $('tooltip-multi').style.display = 'block';
+}
+
 /**
  * On dom load
  */
 document.addEventListener("DOMContentLoaded", function() {
   /* Handle btn-click */
-  btn = document.getElementById('btn-submit');
+  var btn = $('btn-submit');
   btn.style.display = 'none';
   btn.addEventListener("click", doTranslation);
 
   /*  */
-  input = document.getElementById('input');
+  var input = $('input');
   input.addEventListener("keyup", function(ev) {
     if (input.value.length > 0) btn.style.display = 'inline-block';
     else btn.style.display = 'none';
 
-    if ((ev.keyCode == 10 || ev.keyCode == 13) && (!ev.ctrlKey) && (!ev.altKey) && (!ev.shiftKey) && (!ev.cmdKey) && (!ev.metaKey) && (!multiline)) { // ENTER/RETURN KEY without modifiers (like ALT/SHIFT/CTRL...)
+    if ((ev.keyCode == 10 || ev.keyCode == 13) && (!ev.ctrlKey) && (!ev.altKey) && (!ev.shiftKey) && (!ev.cmdKey) && (!ev.metaKey) && (!multiline)) {
+      // ENTER without modifiers (like ALT/SHIFT/CTRL...) in "single-line" mode
+      doTranslation();
+    } else if ((ev.keyCode == 10 || ev.keyCode == 13) && ev.ctrlKey && multiline) {
+      // ENTER with CTRL modifier in "multi-line" mode
       doTranslation();
     } else {
-      lineCount = input.value.lineCount();
+      // Any other key
+      var lineCount = input.value.lineCount();
       input.rows = lineCount + 1;
 
-      if (lineCount > 1) {
-        input.className += ' multiline';
-        multiline = true;
-      }
+      if (lineCount > 1) setMultiline();
     }
   })
-
-
 });
 
 /**

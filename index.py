@@ -1,13 +1,16 @@
-import config
-import logging
-logging.basicConfig(level=logging.DEBUG)
 
-## APP
-from flask import Flask
-from flask import request
-from flask import render_template
+import logging
+from hashlib import md5
+from base64 import urlsafe_b64encode
+from os import urandom
+
 import redis
-from uuid import uuid4
+from flask import Flask, request, render_template
+
+import config
+
+
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__,static_folder='public')
 r = redis.StrictRedis(
@@ -22,7 +25,7 @@ def setPass():
     assert request.method == 'POST'
     password = request.form['pass']
     iv = request.form['iv']
-    uuid = uuid4()
+    uuid = urlsafe_b64encode(md5(urandom(128)).digest())[:8].decode('utf-8')
 
     with r.pipeline() as pipe:
         pipe.set(uuid, iv + '|' + password)
