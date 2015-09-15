@@ -27,8 +27,8 @@ function postRequest(url, params, callback) {
 function submit(data, callback) {
   data = encrypt(data);
 
-  postRequest('/set', "pass="+encodeURIComponent(data.encrypted), function(response) {
-    callback(response + "#" + data.privateKey);
+  postRequest('/set', "pass="+encodeURIComponent(data.encrypted) + "&iv="+encodeURIComponent(data.iv), function(response) {
+    callback(response + "#" + data.key);
   });
 }
 
@@ -94,22 +94,28 @@ document.addEventListener("DOMContentLoaded", function() {
  * Encrypt data by assimetric encription
  */
 function encrypt(text) {
-    enc = new JSEncrypt();
-    enc.getKey();
+  var keyBytes = window.crypto.getRandomValues(new Uint8Array(16));
+  var ivBytes = window.crypto.getRandomValues(new Uint32Array(1));
 
-    return {
-        'privateKey': enc.getPrivateKeyB64(),
-        'publicKey': enc.getPublicKeyB64(),
-        'encrypted': enc.encrypt(text)
-    };
+  var textBytes = aesjs.util.convertStringToBytes(text);
+  var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(ivBytes));
+
+  return {
+    'key': btoa(aesjs.util.convertBytesToString(keyBytes, 'hex')),
+    'iv': ivBytes[0],
+    'encrypted': btoa(aesjs.util.convertBytesToString(aes.encrypt(textBytes), 'hex'))
+  };
 }
 
 /**
  * Decrypt data by assimetric encription
  */
-function decrypt(privateKey, encrypted) {
-  enc = new JSEncrypt();
-  enc.setPrivateKey(privateKey);
+function decrypt(key, iv, encrypted) {
+  var keyBytes = aesjs.util.convertStringToBytes(atob(key), 'hex');
+  var ivBytes = new Uint32Array([iv]);
 
-  return enc.decrypt(encrypted);
+  var textBytes = aesjs.util.convertStringToBytes(atob(encrypted), 'hex');
+  var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(ivBytes));
+
+  return aesjs.util.convertBytesToString(aes.decrypt(textBytes));
 }
