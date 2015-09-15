@@ -21,10 +21,11 @@ r = redis.StrictRedis(
 def setPass():
     assert request.method == 'POST'
     password = request.form['pass']
+    iv = request.form['iv']
     uuid = uuid4()
 
     with r.pipeline() as pipe:
-        pipe.set(uuid, password)
+        pipe.set(uuid, iv + '|' + password)
         pipe.expire(uuid, config.TTL)
         pipe.execute()
 
