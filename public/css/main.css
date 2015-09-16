@@ -1,6 +1,7 @@
 body {
   background: #0E2037;
-  font-family: 'Share Tech Mono'; font-size: 3em;
+  font-family: 'Share Tech Mono';
+  font-size: 1em;
   text-align: center;
   min-width: 400px;
 }
@@ -16,7 +17,7 @@ body {
 }
 
 .tooltip {
-    font-size: 0.3em;
+    font-size: 0.9em;
     color: #fff;
     line-height: 40px;
 }
@@ -28,14 +29,14 @@ body {
   color: #d8ff00;
 }
 
-.io-display {
+.io-display, .box {
   width: 90%;
   margin: 5%;
   background: transparent;
   border: none;
   color: #fff;
   font-family: 'Share Tech Mono';
-  font-size: 1em;
+  font-size: 2.6em;
   vertical-align: middle;
   text-align: center;
   outline: none;
@@ -43,8 +44,13 @@ body {
   resize: none;
 }
 
+.box {
+  margin: 5%;
+  white-space: normal;
+}
+
 .num-display {
-  font-size: 0.4em;
+  font-size: 1.2em;
   float: left;
   background: transparent;
   color: #fff;
@@ -60,14 +66,14 @@ body {
   border: none;
   color: #fff;
   font-family: 'Share Tech Mono';
-  font-size: 0.4em;
+  font-size: 1.2em;
   vertical-align: middle;
   text-align: left;
   outline: none;
 }
 
 .io-display#output {
-  font-size: 0.4em;
+  font-size: 1.2em;
   word-break: break-all;
   text-align: left;
   height: 120px;
@@ -82,14 +88,14 @@ body {
   text-decoration: none;
   border: 1px solid #fff;
   display: inline-block;
-  font-size: 0.70em;
+  font-size: 2em;
   text-transform: capitalize;
   margin-top: 20px;
   color: #fff;
   cursor: pointer;
   border-radius: 3px;
   padding: 5px;
- }
+}
 
 #btn-submit:hover, a:hover {
   border: 1px solid #f6ff00;
@@ -102,12 +108,10 @@ body {
   width: 90%;
   margin-left: 5%;
   padding: 0;
-  font-size: 0.4em;
   text-align: right;
 }
 
 #rollup-inner {
-  font-size: 0.8em;
   color: #fff;
   text-align: left;
   width: 90%;
@@ -140,10 +144,12 @@ body {
   margin-top: 0;
   margin-bottom: 9px;
 }
+
 #btn-rollup {
   background: #0E2037;
   margin-top: -1px;
   margin-right: -2px;
   border-radius: 0 0 3px 3px;
   border-top: none;
+  font-size: 1em;
 }

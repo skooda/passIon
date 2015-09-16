@@ -1,5 +1,7 @@
 
 import logging
+import pickle
+from time import time
 from hashlib import md5
 from base64 import urlsafe_b64encode
 from os import urandom
@@ -20,6 +22,7 @@ r = redis.StrictRedis(
     password=config.REDIS_PASSWORD
 )
 
+
 @app.route('/set', methods=['post'])
 def setPass():
     assert request.method == 'POST'
@@ -28,19 +31,31 @@ def setPass():
     uuid = urlsafe_b64encode(md5(urandom(128)).digest())[:8].decode('utf-8')
 
     with r.pipeline() as pipe:
-        pipe.set(uuid, iv + '|' + password)
+        data = {'status': 'ok', 'iv': iv, 'pass': password}
+        pipe.set(uuid, pickle.dumps(data))
         pipe.expire(uuid, config.TTL)
         pipe.execute()
 
     return '/get/{}'.format(uuid)
 
+
 @app.route('/get/<uuid>', methods=['get'])
 def getPass(uuid):
     with r.pipeline() as pipe:
-        password = r.get(uuid)
-        r.delete(uuid)
+        raw_data = r.get(uuid)
 
-    return render_template('get.html', data=password.decode('ascii') if password else '')
+        if not raw_data:
+            return render_template('expired.html')
+
+        data = pickle.loads(raw_data)
+        if data['status'] == 'ok':
+            new_data = {'status': 'withdrawn', 'time': int(time()), 'ip': request.remote_addr}
+            r.set(uuid, pickle.dumps(new_data))
+            return render_template('get.html', data=data['iv'] + '|' + data['pass'])
+
+        if data['status'] == 'withdrawn':
+            return render_template('withdrawn.html')
+
 
 @app.route('/', methods=['get'])
 def index():
