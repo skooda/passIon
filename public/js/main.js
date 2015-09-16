@@ -30,7 +30,6 @@ function setMultiline() {
 
 function handleKeyDown(ev, element, multiline) {
     if (element.value.length > 0) $('btn-submit').style.display = 'inline-block';
-
     else $('btn-submit').style.display = 'none';
 
     if ((ev.keyCode == 10 || ev.keyCode == 13) && (!ev.ctrlKey) && (!ev.altKey) && (!ev.shiftKey) && (!ev.cmdKey) && (!ev.metaKey) && (!multiline)) {
