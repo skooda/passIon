@@ -12,9 +12,10 @@
     </div>
 
     <div id="step2" class="step">
-      <textarea name="output" class="io-display animated fadeInDownBig" disabled id="output"></textarea>
+      <textarea name="output" class="io-display animated fadeInDownBig" id="output"></textarea>
       <p id="tooltip-time" class="tooltip"><span class="key">NOTICE</span> Password will expire in {{ ttl }} minutes</p>
       <a href="/">Send other</a>
+      <a id="btn-copy">Copy to clipboard</a>
     </div>
   </div>
   <div id="rollup">
@@ -33,6 +34,7 @@
     $('container').addEventListener("click", hideRollup);
     $('btn-rollup').addEventListener("click", toggleRollup);
 
+    $('btn-copy').addEventListener("click", copyToClipboard);
     var input = $('input');
     input.addEventListener("keyup", function(ev) { handleKeyDown(ev, $('input'), multiline); });
   </script>

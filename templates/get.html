@@ -1,11 +1,13 @@
 {% extends "_layout.html" %}
 
 {% block body %}
-  <textarea name="output" class="io-display" id="output" disabled autofocus>{{ data }}</textarea>
+  <textarea name="output" class="io-display" id="output" autofocus>{{ data }}</textarea>
+  <a id="btn-copy">Copy to clipboard</a>
 {% endblock %}
 
 {% block app %}
   <script>
     decryptArea('output');
+    $('btn-copy').addEventListener("click", copyToClipboard);
   </script>
 {% endblock %}
