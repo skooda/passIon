@@ -73,34 +73,60 @@ function setMultiline() {
   $('tooltip-multi').style.display = 'block';
 }
 
+function hideRollup() {
+  $('rollup-inner').style.display = 'none';
+}
+
+function showRollup() {
+  $('rollup-inner').style.display = 'block';
+}
+/**
+ * Toggle rollup
+ */
+function toggleRollup() {
+  if ($('rollup-inner').style.display == 'block') {
+    hideRollup();
+  } else {
+    showRollup();
+  }
+}
+
 /**
  * On dom load
  */
 document.addEventListener("DOMContentLoaded", function() {
   /* Handle btn-click */
-  var btn = $('btn-submit');
-  btn.style.display = 'none';
-  btn.addEventListener("click", doTranslation);
+  $('btn-submit').style.display = 'none';
+  $('btn-submit').addEventListener("click", doTranslation);
+
+  $('btn-rollup').addEventListener("click", toggleRollup);
 
   /*  */
   var input = $('input');
   input.addEventListener("keyup", function(ev) {
-    if (input.value.length > 0) btn.style.display = 'inline-block';
-    else btn.style.display = 'none';
+    if (input.value.length > 0) $('btn-submit').style.display = 'inline-block';
+    else $('btn-submit').style.display = 'none';
 
     if ((ev.keyCode == 10 || ev.keyCode == 13) && (!ev.ctrlKey) && (!ev.altKey) && (!ev.shiftKey) && (!ev.cmdKey) && (!ev.metaKey) && (!multiline)) {
       // ENTER without modifiers (like ALT/SHIFT/CTRL...) in "single-line" mode
+      ev.preventDefault();
       doTranslation();
-    } else if ((ev.keyCode == 10 || ev.keyCode == 13) && ev.ctrlKey && multiline) {
-      // ENTER with CTRL modifier in "multi-line" mode
-      doTranslation();
-    } else {
-      // Any other key
-      var lineCount = input.value.lineCount();
-      input.rows = lineCount + 1;
-
-      if (lineCount > 1) setMultiline();
+      return false;
     }
+
+    if ((ev.keyCode == 10 || ev.keyCode == 13) && ev.ctrlKey && multiline) {
+      // ENTER with CTRL modifier in "multi-line" mode
+      ev.preventDefault();
+      doTranslation();
+      return false;
+    }
+
+    // Any other key
+    var lineCount = input.value.lineCount();
+    input.rows = lineCount + 1;
+
+    if (lineCount > 1) setMultiline();
+
   })
 });
 

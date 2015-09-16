@@ -1,9 +1,9 @@
 {% extends "_layout.html" %}
 
 {% block body %}
-  <textarea name="input" class="io-display" id="input" autofocus>{{ data }}</textarea>
+  <textarea name="output" class="io-display" id="output" disabled autofocus>{{ data }}</textarea> 
   <script>
-  var input = document.getElementById('input');
+  var input = document.getElementById('output');
   var inputParts = input.value.split('|');
 
   input.value = passion.decrypt(location.hash.substr(1), inputParts[0], inputParts[1]);

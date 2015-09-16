@@ -44,7 +44,8 @@ def getPass(uuid):
 
 @app.route('/', methods=['get'])
 def index():
-    return render_template('index.html')
+    ttl = int(config.TTL/60)
+    return render_template('index.html', ttl=ttl)
 
 if __name__ == '__main__':
     app.run()

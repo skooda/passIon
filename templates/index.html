@@ -7,12 +7,28 @@
     </div>
     <p id="tooltip-single" class="tooltip"><span class="key">ENTER</span>&nbsp;will&nbsp;submit, <span class="key">SHIFT</span>&nbsp;+&nbsp;<span class="key">ENTER</span>&nbsp;to&nbsp;create&nbsp;newline</p>
     <p id="tooltip-multi" class="tooltip"><span class="key">CTRL</span>&nbsp;+&nbsp;<span class="key">ENTER</span>&nbsp;will&nbsp;submit, <span class="key">ENTER</span>&nbsp;to&nbsp;create&nbsp;newline</p>
-    <btn id="btn-submit" class="animated fadeIn">ENCRYPT AND SHARE</btn>
+    <a id="btn-submit" class="animated fadeIn">ENCRYPT AND SHARE</a>
   </div>
 
   <div id="step2" class="step">
-    <textarea name="output" class="io-display animated fadeInDownBig" id="output"></textarea>
-    <a href="/">Repeat</a>
+    <textarea name="output" class="io-display animated fadeInDownBig" disabled id="output"></textarea>
+    <p id="tooltip-time" class="tooltip"><span class="key">NOTICE</span> Password will expire in {{ ttl }} minutes</p>
+    <a href="/">Send other</a>
+  </div>
+
+  <div id="rollup">
+    <div id="rollup-inner" class="hidden">
+      <h1>How it works?</h1>
+      <p>This is a safe password sharing application.</p>
+      <p>Just paste a password or some sensitive data into the text field and you will get "password withdraw" URL.</p>
+      <p>Share this URL through any usual channel.</p>
+
+      <h1>Is it safe?</h1>
+      <p>Yep, your data is being encrypted in your browser so no sensitive information is sent via HTTP.</p>
+      <p>Encrypted passwords are deleted from server at first withdrawal.</p>
+      <p>Even if the password is not withdrawn, it will be deleted automatically after {{ ttl }} minutes since saved.</p>
+    </div>
+    <a id="btn-rollup" class="btn">How it works</a>
   </div>
 
 {% endblock %}
