@@ -1,11 +1,11 @@
 {% extends "_layout.html" %}
 
 {% block body %}
-  <textarea name="output" class="io-display" id="output" disabled autofocus>{{ data }}</textarea> 
-  <script>
-  var input = document.getElementById('output');
-  var inputParts = input.value.split('|');
+  <textarea name="output" class="io-display" id="output" disabled autofocus>{{ data }}</textarea>
+{% endblock %}
 
-  input.value = passion.decrypt(location.hash.substr(1), inputParts[0], inputParts[1]);
+{% block app %}
+  <script>
+    decryptArea('output');
   </script>
 {% endblock %}

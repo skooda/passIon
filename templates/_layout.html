@@ -2,14 +2,19 @@
 <html>
 <head>
   <title>PassIon - Heureka password minion</title>
-  <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+
   <link rel="stylesheet" type="text/css" href="/public/vendor/animate.min.css">
+  <script type="text/javascript" src="/public/vendor/aes.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
-  <script type="text/javascript" src="/public/js/aes.js"></script>
-  <script type="text/javascript" src="/public/js/main.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+  {% include '_app_scripts.html' %}
 </head>
 <body>
   {% block body %}
+  {% endblock %}
+
+  {% block app %}
   {% endblock %}
 </body>
 </html>

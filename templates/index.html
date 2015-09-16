@@ -30,5 +30,16 @@
     </div>
     <a id="btn-rollup" class="btn">How it works</a>
   </div>
+{% endblock %}
 
+{% block app %}
+  <script>
+    $('btn-submit').style.display = 'none';
+    $('btn-submit').addEventListener("click", doTranslation);
+
+    $('btn-rollup').addEventListener("click", toggleRollup);
+
+    var input = $('input');
+    input.addEventListener("keyup", function(ev) { handleKeyDown(ev, $('input'), multiline); });
+  </script>
 {% endblock %}
