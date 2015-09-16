@@ -6,6 +6,6 @@
   var input = document.getElementById('input');
   var inputParts = input.value.split('|');
 
-  input.value = decrypt(location.hash.substr(1), inputParts[0], inputParts[1]);
+  input.value = passion.decrypt(location.hash.substr(1), inputParts[0], inputParts[1]);
   </script>
 {% endblock %}

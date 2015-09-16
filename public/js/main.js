@@ -28,7 +28,7 @@ function postRequest(url, params, callback) {
  * Submit data and run callback with data url
  */
 function submit(data, callback) {
-  data = encrypt(data);
+  data = passion.encrypt(data);
 
   postRequest('/set', "pass="+encodeURIComponent(data.encrypted) + "&iv="+encodeURIComponent(data.iv), function(response) {
     callback(response + "#" + data.key);
@@ -104,32 +104,70 @@ document.addEventListener("DOMContentLoaded", function() {
   })
 });
 
-/**
- * Encrypt data by assimetric encription
- */
-function encrypt(text) {
-  var keyBytes = window.crypto.getRandomValues(new Uint8Array(16));
-  var ivBytes = window.crypto.getRandomValues(new Uint32Array(1));
 
-  var textBytes = aesjs.util.convertStringToBytes(text);
-  var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(ivBytes));
+(function(that) {
+  /**
+   * Encrypt data by assimetric encription
+   */
+  var encrypt = function(text) {
+    var keyBytes = getRandomBytes(new Uint8Array(16));
+    var ivBytes = getRandomBytes(new Uint32Array(1));
 
-  return {
-    'key': btoa(aesjs.util.convertBytesToString(keyBytes, 'hex')),
-    'iv': ivBytes[0],
-    'encrypted': btoa(aesjs.util.convertBytesToString(aes.encrypt(textBytes), 'hex'))
+    var textBytes = aesjs.util.convertStringToBytes(text);
+    var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(ivBytes));
+
+    return {
+      'key': bytesToBase64(keyBytes),
+      'iv': ivBytes[0],
+      'encrypted': bytesToBase64(aes.encrypt(textBytes))
+    };
   };
-}
 
-/**
- * Decrypt data by assimetric encription
- */
-function decrypt(key, iv, encrypted) {
-  var keyBytes = aesjs.util.convertStringToBytes(atob(key), 'hex');
-  var ivBytes = new Uint32Array([iv]);
+  /**
+   * Decrypt data by assimetric encription
+   */
+  var decrypt = function(key, iv, encrypted) {
+    var keyBytes = base64ToBytes(key);
+    var ivBytes = new Uint32Array([iv]);
 
-  var textBytes = aesjs.util.convertStringToBytes(atob(encrypted), 'hex');
-  var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(ivBytes));
+    var textBytes = base64ToBytes(encrypted);
+    var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(ivBytes));
 
-  return aesjs.util.convertBytesToString(aes.decrypt(textBytes));
-}
+    return aesjs.util.convertBytesToString(aes.decrypt(textBytes));
+  };
+
+  /**
+   * Returns buffer filled with random bytes
+   */
+  var getRandomBytes = function(buffer) {
+    if (!ArrayBuffer.isView(buffer)) {
+      throw new TypeError("Can only work with ArrayBuffer instances (Uint8Array, Uint32Array, etc.)");
+    }
+    // secure method
+    if (window.crypto && window.crypto.getRandomValues) {
+      return window.crypto.getRandomValues(buffer);
+    }
+    // backward compatibility random generator (mainly for IE 10 and lower)
+    var maxValue = Math.pow(256, buffer.BYTES_PER_ELEMENT);
+    for (var i = 0; i < buffer.length; i++) {
+      buffer[i] = Math.floor(Math.random() * maxValue);
+    }
+
+    return buffer;
+  };
+
+  // little bit tricky conversions taking place in here
+  // we use aesjs hex converter first since btoa() and atob() functions don't support UTF-16 encoded strings
+  var bytesToBase64 = function(bytes) {
+    return btoa(aesjs.util.convertBytesToString(bytes, 'hex'));
+  };
+
+  var base64ToBytes = function(base64str) {
+    return aesjs.util.convertStringToBytes(atob(base64str), 'hex');
+  };
+
+  that.passion = {
+    encrypt: encrypt,
+    decrypt: decrypt
+  };
+})(window);
