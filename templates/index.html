@@ -18,15 +18,7 @@
 
   <div id="rollup">
     <div id="rollup-inner" class="hidden">
-      <h1>How it works?</h1>
-      <p>This is a safe password sharing application.</p>
-      <p>Just paste a password or some sensitive data into the text field and you will get "password withdraw" URL.</p>
-      <p>Share this URL through any usual channel.</p>
-
-      <h1>Is it safe?</h1>
-      <p>Yep, your data is being encrypted in your browser so no sensitive information is sent via HTTP.</p>
-      <p>Encrypted passwords are deleted from server at first withdrawal.</p>
-      <p>Even if the password is not withdrawn, it will be deleted automatically after {{ ttl }} minutes since saved.</p>
+      {% include '_howto.html' %}
     </div>
     <a id="btn-rollup" class="btn">How it works</a>
   </div>
