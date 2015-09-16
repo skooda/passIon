@@ -4,6 +4,8 @@ body {
   font-size: 1em;
   text-align: center;
   min-width: 400px;
+  margin: 0;
+  padding: 0;
 }
 
 ::selection {
@@ -152,4 +154,10 @@ body {
   border-radius: 0 0 3px 3px;
   border-top: none;
   font-size: 1em;
+}
+
+#container {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
 }
