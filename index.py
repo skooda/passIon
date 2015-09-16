@@ -63,4 +63,14 @@ def index():
     return render_template('index.html', ttl=ttl)
 
 if __name__ == '__main__':
-    app.run()
+    try:
+        port = config.APP_PORT
+    except AttributeError:
+        port = 5000
+
+    try:
+        host = config.APP_HOST
+    except AttributeError:
+        host = '127.0.0.1'
+
+    app.run(host=host, port=port)
