@@ -7,5 +7,7 @@ function selectOutput()
 function copyToClipboard(ev)
 {
   selectOutput();
-  document.execCommand('copy');
+  if (! document.execCommand('copy')) {
+    window.prompt("Copy to clipboard is blocked by your browser privacy policy. You can copy using system-wide keyboard shortcut from following input:", $('output').value);
+  };
 }
