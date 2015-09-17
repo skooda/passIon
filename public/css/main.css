@@ -165,3 +165,12 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.bg-text {
+  color: #1E3047;
+  font-size: 30px;
+  z-index: -1;
+  position: absolute;
+  right: 5%;
+  bottom: 0;
+}
