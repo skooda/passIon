@@ -522,9 +522,11 @@
      */
     var Counter = function(initialValue) {
         if (initialValue === null) { initialValue = 1; }
+        if (ArrayBuffer.isView(initialValue)) {
+            initialValue = Array.prototype.slice.call(initialValue);
+        }
 
         this._counter = createBuffer([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-
         this.setValue(initialValue);
     }
 
