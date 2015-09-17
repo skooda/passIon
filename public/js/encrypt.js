@@ -13,7 +13,7 @@ function decryptArea(id) {
     var ivBytes = getRandomBytes(new Uint32Array(1));
 
     var textBytes = aesjs.util.convertStringToBytes(text);
-    var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(ivBytes));
+    var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(ivBytes[0]));
 
     return {
       'key': bytesToBase64(keyBytes),
@@ -27,10 +27,9 @@ function decryptArea(id) {
    */
   var decrypt = function(key, iv, encrypted) {
     var keyBytes = base64ToBytes(key);
-    var ivBytes = new Uint32Array([iv]);
 
     var textBytes = base64ToBytes(encrypted);
-    var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(ivBytes));
+    var aes = new aesjs.ModeOfOperation.ctr(keyBytes, new aesjs.Counter(parseInt(iv)));
 
     return aesjs.util.convertBytesToString(aes.decrypt(textBytes));
   };
