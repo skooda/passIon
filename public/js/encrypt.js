@@ -2,6 +2,9 @@ function decryptArea(id) {
   var area = $(id);
   var areaParts = area.value.split('|');
   area.value = passion.decrypt(location.hash.substr(1), areaParts[0], areaParts[1]);
+
+  area.style.height = "1px";
+  area.style.height = (25+area.scrollHeight)+"px";
 }
 
 (function(that) {
