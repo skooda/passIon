@@ -3,7 +3,7 @@
  */
 function updateOutput(res) {
   output = $('output');
-  output.value = 'http://' + window.location.host + res;
+  output.value = 'https://' + window.location.host + res;
   $('step2').style.display = 'block';
   selectOutput();
 }
