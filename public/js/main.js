@@ -18,6 +18,24 @@ function doTranslation() {
 }
 
 /**
+ * If str looks like an url, do a redirect
+ */
+function attemptRedirect(str) {
+    if (isUrl(str)) {
+        window.location.href = str;
+    }
+}
+
+/**
+ * Returns true if str looks like an URL (without any additional text)
+ */
+function isUrl(str) {
+    // Used @stephenhay (38 chars) regex from https://mathiasbynens.be/demo/url-regex
+    // for its simplicity and greediness (better match all urls than not matching a weird url)
+    return /^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$/i.test(str);
+}
+
+/**
  * Activate multiline mode
  */
 var multiline = false;
@@ -32,6 +50,9 @@ function setMultiline() {
 function handleKeyDown(ev, element, multiline) {
     if (element.value.length > 0) $('btn-submit').style.display = 'inline-block';
     else $('btn-submit').style.display = 'none';
+
+    if (isUrl(element.value)) $('redirect-notice').style.display = 'block';
+    else $('redirect-notice').style.display = 'none';
 
     if ((ev.keyCode == 10 || ev.keyCode == 13) && (!ev.ctrlKey) && (!ev.altKey) && (!ev.shiftKey) && (!ev.cmdKey) && (!ev.metaKey) && (!multiline)) {
       // ENTER without modifiers (like ALT/SHIFT/CTRL...) in "single-line" mode
