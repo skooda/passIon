@@ -32,7 +32,7 @@ function attemptRedirect(str) {
 function isUrl(str) {
     // Used @stephenhay (38 chars) regex from https://mathiasbynens.be/demo/url-regex
     // for its simplicity and greediness (better match all urls than not matching a weird url)
-    return /^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$/i.test(str);
+    return /^\s*(https?|ftp):\/\/[^\s\/$.?#].[^\s]*\s*$/i.test(str);
 }
 
 /**
