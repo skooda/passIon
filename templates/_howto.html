@@ -1,14 +1,15 @@
 
   <h1>How it works?</h1>
   <p>This is a safe password sharing application.</p>
-  <p>Just paste a password or some sensitive data into the text field and you will get "password withdraw" URL.</p>
+  <p>Just paste a password or some sensitive data into the text field and you will get a "password withdrawal" URL.</p>
   <p>Share this URL through any usual channel.</p>
 
   <h1>Is it safe?</h1>
   <p>Yep, your data is being encrypted in your browser so no sensitive information is sent via HTTP.</p>
-  <p>Encrypted passwords are deleted from server at first withdrawal.</p>
+  <p>Encrypted passwords are deleted from server after the first withdrawal.</p>
   <p>Even if the password is not withdrawn, it will be deleted automatically after {{ ttl }} minutes since saved.</p>
 
-  <h1>Some tips</h1>
+  <h1 class="warn">Prevent the secret from being compromised!</h1>
   <li>Use browser anonymous mode for better security.</li>
-  <li>Do not use URL shorteners for generated URLS.</li>
+  <li>Do not use URL shorteners for generated URLs.</li>
+  <li>Configure the secret <strong>AFTER</strong> the other party confirms its withdrawal!</li>
