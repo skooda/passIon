@@ -81,6 +81,15 @@ body {
   height: 120px;
 }
 
+.warn {
+  color: #ff9900;
+}
+
+#info {
+  font-size: 1.2em;
+  line-height: 2em;
+}
+
 .step { display: none; }
 #step1 { display: block; }
 

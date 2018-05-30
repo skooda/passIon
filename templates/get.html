@@ -8,6 +8,7 @@
 {% block app %}
   <script>
     decryptArea('output');
+    attemptRedirect($('output').value);
     $('btn-copy').addEventListener("click", copyToClipboard);
   </script>
 {% endblock %}
